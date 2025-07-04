@@ -1,0 +1,6 @@
+@if (toastState.isVisible) {
+<div class="toast-container" [ngClass]="toastState.type">
+    <p>{{ toastState.message }}</p>
+    <button class="close-button" (click)="hideToast()">x</button>
+</div>
+}
