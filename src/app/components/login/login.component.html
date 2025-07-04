@@ -1,0 +1,25 @@
+<div class="login-container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <input type="email" formControlName="email" class="email-input" name="email"
+        [ngClass]="{'invalid': emailControl?.invalid && (emailControl?.dirty || emailControl?.touched)}"
+        placeholder="Email">
+      <div class="error-message">
+        @if (emailControl?.invalid && (emailControl?.dirty || emailControl?.touched) &&
+        emailControl?.errors?.['required']) {
+        Email is required
+        } @else if (emailControl?.invalid && (emailControl?.dirty || emailControl?.touched) &&
+        emailControl?.errors?.['email']) {
+        Invalid Email
+        }
+      </div>
+      <button type="submit" [disabled]="loginForm.invalid">
+        @if (isLoading()) {
+        Loggin In...
+        } @else {
+        LogIn
+        }
+      </button>
+    </div>
+  </form>
+</div>
