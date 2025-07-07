@@ -1,40 +1,36 @@
-<div class="verify-login-container">
-    <form [formGroup]="verifyLoginForm" (ngSubmit)="onSubmit()">
+<div class="container">
+    <form>
+        @if (email()) {
+        <ng-container>
+            <p>OTP sent to {{ email() }}</p>
+        </ng-container>
+        }
         <div class="form-group">
-            @if (email()) {
-            <div class="otp-sent-box">
-                OTP sent to {{ email() }}
-            </div>
-            }
-            <input type="text" formControlName="otp" class="otp-input" name="otp"
-                [ngClass]="{'invalid': otpControl?.invalid && (otpControl?.dirty || otpControl?.touched)}"
-                placeholder="OTP">
-            <div class="error-message">
-                @if (otpControl?.invalid
-                && otpControl?.dirty
-                && otpControl?.touched
-                && otpControl?.errors?.['required']) {
-                OTP is required
-                }
-            </div>
-            <div>
-                <button type="submit" [disabled]="verifyLoginForm.invalid">
-                    @if (isLoading()) {
-                    Verifying...
-                    } @else {
-                    Verify
-                    }
-                </button>
-            </div>
-            <div>
-                <button type="button" (click)="resendOtp()">
-                    @if (isResendLoading()) {
-                    Resending OTP...
-                    } @else {
-                    Resend OTP
-                    }
-                </button>
-            </div>
+            <label for="otp">OTP</label>
+            <input type="text" id="otp" [(ngModel)]="otp" name="otp" required>
         </div>
+        <div class="form-group">
+            <button type="button" (click)="verifyOtp()">
+                @if (isLoading()) {
+                Verifying...
+                } @else {
+                Verify
+                }
+            </button>
+        </div>
+        <div class="form-group">
+            <button type="button" (click)="resendOtp()">
+                @if (isResendLoading()) {
+                Resending OTP...
+                } @else {
+                Resend OTP
+                }
+            </button>
+        </div>
+        @if(errorMessage()){
+        <ng-container>
+            <p class="error">{{ errorMessage() }}</p>
+        </ng-container>
+        }
     </form>
 </div>
