@@ -28,10 +28,31 @@ export const routes: Routes = [
         },
     },
     {
-        path: "register/name",
+        path: "home",
         loadComponent: () => {
-            return import('./components/update-user-name/update-user-name.component')
-                .then((m) => m.UpdateUserNameComponent)
+            return import('./components/home/home.component')
+                .then((m) => m.HomeComponent)
+        },
+    },
+    {
+        path: "online",
+        loadComponent: () => {
+            return import('./components/online-list/online-list.component')
+                .then((m) => m.OnlineListComponent)
+        },
+    },
+    {
+        path: "friends",
+        loadComponent: () => {
+            return import('./components/friends/friends.component')
+                .then((m) => m.FriendsComponent)
+        }
+    },
+    {
+        path: "settings",
+        loadComponent: () => {
+            return import('./components/settings/settings.component')
+                .then((m) => m.SettingsComponent)
         },
     },
     {
@@ -39,6 +60,13 @@ export const routes: Routes = [
         loadComponent: () => {
             return import('./components/update-user-dob/update-user-dob.component')
                 .then((m) => m.UpdateUserDobComponent)
+        },
+    },
+    {
+        path: "register/name",
+        loadComponent: () => {
+            return import('./components/update-user-name/update-user-name.component')
+                .then((m) => m.UpdateUserNameComponent)
         },
     },
 ];
