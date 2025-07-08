@@ -21,10 +21,24 @@ export const routes: Routes = [
         },
     },
     {
-        path: "chat-list",
+        path: "chat",
         loadComponent: () => {
             return import('./components/chat-list/chat-list.component')
                 .then((m) => m.ChatListComponent)
+        },
+    },
+    {
+        path: "register/name",
+        loadComponent: () => {
+            return import('./components/update-user-name/update-user-name.component')
+                .then((m) => m.UpdateUserNameComponent)
+        },
+    },
+    {
+        path: "register/dob",
+        loadComponent: () => {
+            return import('./components/update-user-dob/update-user-dob.component')
+                .then((m) => m.UpdateUserDobComponent)
         },
     },
 ];
