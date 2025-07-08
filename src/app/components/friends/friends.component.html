@@ -1,0 +1,18 @@
+<div class="friends-container">
+    <nav class="friends-nav">
+        <a class="nav-item" [class.active]="selectedTab() === 'online'" (click)="selectTab('online')">
+            Online
+        </a>
+        <a class="nav-item" [class.active]="selectedTab() === 'all'" (click)="selectTab('all')">
+            All Friends
+        </a>
+        <a class=" nav-item" [class.active]="selectedTab() === 'add'" (click)="selectTab('add')">
+            Add New Friend
+        </a>
+    </nav>
+    <div class="search-container">
+        <input #searchInput type="text" class="search-input" placeholder="Search">
+    </div>
+    <div class="friends-content">
+    </div>
+</div>
