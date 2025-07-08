@@ -22,13 +22,12 @@ export class LoginComponent {
 
   onSubmit() {
 
-    if (!this.email) {
+    if (!this.email?.trim()) {
       this.errorMessage.set("Email is empty");
       return;
     }
 
     this.isLoading.set(true);
-
     this.authService.login(this.email).subscribe({
       next: (response) => {
         this.authService.setEmail(this.email);

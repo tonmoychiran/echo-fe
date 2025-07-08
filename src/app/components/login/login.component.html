@@ -2,12 +2,12 @@
   <h1>Goppho Login</h1>
   <form (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="email">Email</label>
+      <label for="email">EMAIL</label>
       <input type="text" id="email" [(ngModel)]="email" name="email" required>
     </div>
-    <button type="submit">
+    <button type="submit" [disabled]="isLoading()">
       @if (isLoading()) {
-      Loggin In...
+      Logging In...
       } @else {
       LogIn
       }
