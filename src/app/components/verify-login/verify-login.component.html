@@ -2,7 +2,7 @@
     <form>
         @if (email()) {
         <ng-container>
-            <p>OTP sent to {{ email() }}</p>
+            <p>OTP SENT TO {{ email() }}</p>
         </ng-container>
         }
         <div class="form-group">
@@ -10,8 +10,8 @@
             <input type="text" id="otp" [(ngModel)]="otp" name="otp" required>
         </div>
         <div class="form-group">
-            <button type="button" (click)="verifyOtp()">
-                @if (isLoading()) {
+            <button type="button" [disabled]="isVerifyLoading()" (click)="verifyOtp()">
+                @if (isVerifyLoading()) {
                 Verifying...
                 } @else {
                 Verify
@@ -19,7 +19,7 @@
             </button>
         </div>
         <div class="form-group">
-            <button type="button" (click)="resendOtp()">
+            <button type="button" [disabled]="isResendLoading()" (click)="resendOtp()">
                 @if (isResendLoading()) {
                 Resending OTP...
                 } @else {

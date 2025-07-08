@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-verify-login',
@@ -12,12 +13,13 @@ import { Router } from '@angular/router';
 })
 export class VerifyLoginComponent {
   otp: string = "";
-  isLoading = signal(false);
+  isVerifyLoading = signal(false);
   isResendLoading = signal(false);
   errorMessage = signal("");
   email = signal<string | null>(null);
 
   private authService = inject(AuthService);
+  private userService = inject(UserService);
   private router = inject(Router);
 
   constructor() {
@@ -26,30 +28,32 @@ export class VerifyLoginComponent {
 
   verifyOtp() {
 
-    if (!this.otp) {
+    if (!this.otp?.trim()) {
       this.errorMessage.set("OTP is empty");
       return;
     }
 
-    this.isLoading.set(true);
+    this.isVerifyLoading.set(true);
 
     this.authService.verifyOtp(this.email(), this.otp).subscribe({
       next: (response) => {
-        this.authService.clearEmail();
-        this.router.navigate(['/chat-list']);
+        const accessToken = response?.accessToken;
+        this.authService.setAccessToken(accessToken);
+        this.getUserProfileInformation();
       },
       error: (error) => {
+        this.isVerifyLoading.set(false);
         this.errorMessage.set(error?.error?.message || 'OTP Verification Failed');
       },
       complete: () => {
-        this.isLoading.set(false);
+        this.isVerifyLoading.set(false);
       }
     });
 
   }
 
   resendOtp() {
-    if (!this.email()) {
+    if (!this.email()?.trim()) {
       this.router.navigate(['/login']);
       return;
     }
@@ -59,11 +63,29 @@ export class VerifyLoginComponent {
       next: (response) => {
       },
       error: (error) => {
+        this.isResendLoading.set(false);
         this.errorMessage.set(error?.error?.message || 'OTP Resend Failed');
       },
       complete: () => {
         this.isResendLoading.set(false);
       }
     });
+  }
+
+  getUserProfileInformation() {
+    this.userService.getUserInformation().subscribe({
+      next: (response) => {
+        if (response?.data) {
+          this.router.navigate(['/chat']);
+        } else {
+          this.router.navigate(['/register/name'])
+        }
+      },
+      error: (error) => {
+        this.errorMessage.set('Unknown error occured');
+      },
+      complete: () => {
+      }
+    })
   }
 }
