@@ -1,4 +1,4 @@
-:root{
+:root {
     accent-color: #5865f2;
     color: #ffff;
     background-color: #2f3136;
@@ -13,8 +13,6 @@
 
 body {
     background-color: var(--background-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
+    overflow: hidden;
 }
