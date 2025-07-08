@@ -1,0 +1,40 @@
+<div class="container">
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label>DATE OF BIRTH</label>
+            <div class="select-group">
+                <select name="year" id="year" [(ngModel)]="selectedYear" (ngModelChange)="updateDays()">
+                    <option value="" disabled>year</option>
+                    @for(year of years(); track year){
+                    <option [value]="year">{{year}}</option>
+                    }
+                </select>
+                <select name="month" id="month" [(ngModel)]="selectedMonth" (ngModelChange)="updateDays()">
+                    <option value="" disabled>month</option>
+                    @for(month of months(); track month.id){
+                    <option [value]="month.id">{{month.label}}</option>
+                    }
+                </select>
+                <select name="day" id="day" [(ngModel)]="selectedDay">
+                    <option value="" disabled>day</option>
+                    @for(day of days(); track day){
+                    <option [value]="day">{{day}}</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <button type="submit" [disabled]="isLoading()">
+            @if (isLoading()) {
+            Updating...
+            }
+            @else{
+            Update
+            }
+        </button>
+        @if(errorMessage()){
+        <ng-container>
+            <p class="error">{{ errorMessage() }}</p>
+        </ng-container>
+        }
+    </form>
+</div>
