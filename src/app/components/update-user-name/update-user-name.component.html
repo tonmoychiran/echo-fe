@@ -1,0 +1,21 @@
+<div class="container">
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="email">NAME</label>
+            <input type="text" id="name" [(ngModel)]="name" name="name" required>
+        </div>
+        <button type="submit" [disabled]="isLoading()">
+            @if (isLoading()) {
+            Updating...
+            }
+            @else{
+            Update
+            }
+        </button>
+        @if(errorMessage()){
+        <ng-container>
+            <p class="error">{{ errorMessage() }}</p>
+        </ng-container>
+        }
+    </form>
+</div>
