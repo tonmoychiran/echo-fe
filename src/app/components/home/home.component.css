@@ -1,0 +1,41 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100vw;
+}
+
+.sidebar {
+    width: 35%;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    padding: 16px 2px 16px 16px;
+    height: 100vh;
+    position: relative;
+}
+
+p {
+    padding: 8px 10px;
+}
+
+.separator {
+    width: 32px;
+    height: 2px;
+}
+
+.friends {
+    padding: 8px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.friends:hover {
+    background-color: #3a3c43;
+}
+
+.main-content {
+    flex: 1;
+    background-color: #36393f;
+    padding: 20px;
+}
