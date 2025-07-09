@@ -3,6 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { AppRoutes } from '../../app.routes';
 
 
 @Component({
@@ -21,7 +22,6 @@ export class LoginComponent {
   private router = inject(Router);
 
   onSubmit() {
-
     if (!this.email?.trim()) {
       this.errorMessage.set("Email is empty");
       return;
@@ -30,8 +30,9 @@ export class LoginComponent {
     this.isLoading.set(true);
     this.authService.login(this.email).subscribe({
       next: (response) => {
-        this.authService.setEmail(this.email);
-        this.router.navigate(['/verify-login']);
+        this.router.navigate([AppRoutes.VERIFY_LOGIN], {
+          state: { email: this.email }
+        });
       },
       error: (error) => {
         this.isLoading.set(false);
