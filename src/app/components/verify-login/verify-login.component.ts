@@ -4,6 +4,8 @@ import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { switchMap } from 'rxjs';
+import { AppRoutes } from '../../app.routes';
 
 @Component({
   selector: 'app-verify-login',
@@ -16,48 +18,55 @@ export class VerifyLoginComponent {
   isVerifyLoading = signal(false);
   isResendLoading = signal(false);
   errorMessage = signal("");
-  email = signal<string | null>(null);
+  email = signal("");
 
   private authService = inject(AuthService);
   private userService = inject(UserService);
   private router = inject(Router);
 
   constructor() {
-    this.email.set(this.authService.getEmail());
+    const navigation = this.router.getCurrentNavigation();
+    const navigatedEmail = navigation?.extras?.state?.['email'] || "";
+    if (!navigatedEmail) {
+      this.router.navigate([AppRoutes.LOGIN]);
+    }
+
+    this.email.set(navigatedEmail);
   }
 
   verifyOtp() {
-
     if (!this.otp?.trim()) {
-      this.errorMessage.set("OTP is empty");
+      this.errorMessage.set('OTP is empty');
       return;
     }
 
     this.isVerifyLoading.set(true);
 
-    this.authService.verifyOtp(this.email(), this.otp).subscribe({
-      next: (response) => {
-        const accessToken = response?.accessToken;
-        this.authService.setAccessToken(accessToken);
-        this.getUserProfileInformation();
-      },
-      error: (error) => {
-        this.isVerifyLoading.set(false);
-        this.errorMessage.set(error?.error?.message || 'OTP Verification Failed');
-      },
-      complete: () => {
-        this.isVerifyLoading.set(false);
-      }
-    });
-
+    this.authService.verifyOtp(this.email(), this.otp)
+      .pipe(
+        switchMap(response => {
+          const accessToken = response?.accessToken;
+          this.authService.setAccessToken(accessToken);
+          return this.userService.getUserInformation();
+        })
+      )
+      .subscribe({
+        next: (response) => {
+          this.isVerifyLoading.set(false);
+          if (response?.data) {
+            this.router.navigate(['/home']);
+          } else {
+            this.router.navigate(['/register/name']);
+          }
+        },
+        error: (error) => {
+          this.isVerifyLoading.set(false);
+          this.errorMessage.set(error?.error?.message || 'OTP Verification Failed');
+        }
+      });
   }
 
   resendOtp() {
-    if (!this.email()?.trim()) {
-      this.router.navigate(['/login']);
-      return;
-    }
-
     this.isResendLoading.set(true);
     this.authService.login(this?.email() || "").subscribe({
       next: (response) => {
@@ -72,20 +81,5 @@ export class VerifyLoginComponent {
     });
   }
 
-  getUserProfileInformation() {
-    this.userService.getUserInformation().subscribe({
-      next: (response) => {
-        if (response?.data) {
-          this.router.navigate(['/home']);
-        } else {
-          this.router.navigate(['/register/name'])
-        }
-      },
-      error: (error) => {
-        this.errorMessage.set('Unknown error occured');
-      },
-      complete: () => {
-      }
-    })
-  }
+
 }
