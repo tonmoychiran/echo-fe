@@ -76,7 +76,7 @@ export class VerifyLoginComponent {
     this.userService.getUserInformation().subscribe({
       next: (response) => {
         if (response?.data) {
-          this.router.navigate(['/chat']);
+          this.router.navigate(['/home']);
         } else {
           this.router.navigate(['/register/name'])
         }

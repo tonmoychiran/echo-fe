@@ -91,7 +91,7 @@ export class UpdateUserDobComponent {
     const dob = `${year}-${month}-${day}`;
     this.userService.updateUserDOB(dob).subscribe({
       next: (response) => {
-        this.router.navigate(["/chat"]);
+        this.router.navigate(["/home"]);
       },
       error: (error) => {
         this.isLoading.set(false);
