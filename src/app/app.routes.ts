@@ -1,11 +1,19 @@
 import { Routes } from '@angular/router';
+import { accessTokenGuard } from './guards/access.token.guard';
+
+export const AppRoutes = {
+    LOGIN: '/login',
+    INIT: '/init',
+    VERIFY_LOGIN: '/verify-login',
+    REGISTER_NAME: '/register/name',
+    REGISTER_DOB: '/register/dob',
+    ONLINE_FRIENDS: '/app/friends/online',
+    ALL_FRIENDS: '/app/friends/all',
+    ADD_FRIENDS: '/app/friends/add',
+};
+
 
 export const routes: Routes = [
-    {
-        path: "",
-        pathMatch: "full",
-        redirectTo: "login"
-    },
     {
         path: "login",
         loadComponent: () => {
@@ -18,35 +26,26 @@ export const routes: Routes = [
         loadComponent: () => {
             return import('./components/verify-login/verify-login.component')
                 .then((m) => m.VerifyLoginComponent)
-        },
-    },
-    {
-        path: "chat",
-        loadComponent: () => {
-            return import('./components/chat-list/chat-list.component')
-                .then((m) => m.ChatListComponent)
-        },
-    },
-    {
-        path: "home",
-        loadComponent: () => {
-            return import('./components/home/home.component')
-                .then((m) => m.HomeComponent)
-        },
-    },
-    {
-        path: "online",
-        loadComponent: () => {
-            return import('./components/online-list/online-list.component')
-                .then((m) => m.OnlineListComponent)
-        },
-    },
-    {
-        path: "friends",
-        loadComponent: () => {
-            return import('./components/friends/friends.component')
-                .then((m) => m.FriendsComponent)
         }
+    },
+    {
+        path: "register",
+        children: [
+            {
+                path: "name",
+                loadComponent: () => {
+                    return import('./components/update-user-name/update-user-name.component')
+                        .then((m) => m.UpdateUserNameComponent)
+                }
+            },
+            {
+                path: "dob",
+                loadComponent: () => {
+                    return import('./components/update-user-dob/update-user-dob.component')
+                        .then((m) => m.UpdateUserDobComponent)
+                },
+            }
+        ]
     },
     {
         path: "settings",
@@ -56,17 +55,71 @@ export const routes: Routes = [
         },
     },
     {
-        path: "register/dob",
+        path: "init",
         loadComponent: () => {
-            return import('./components/update-user-dob/update-user-dob.component')
-                .then((m) => m.UpdateUserDobComponent)
+            return import('./components/init/init.component')
+                .then((m) => m.InitComponent)
         },
     },
     {
-        path: "register/name",
+        path: 'app',
         loadComponent: () => {
-            return import('./components/update-user-name/update-user-name.component')
-                .then((m) => m.UpdateUserNameComponent)
+            return import('./components/home/home.component').then((m) => m.HomeComponent);
         },
+        canActivateChild: [accessTokenGuard],
+        children: [
+            {
+                path: 'friends',
+                loadComponent: () => {
+                    return import('./components/friends/friends.component')
+                        .then(
+                            (m) => m.FriendsComponent
+                        );
+                },
+                children: [
+                    {
+                        path: "online",
+                        loadComponent: () => {
+                            return import('./components/online-friend/online-friend.component')
+                                .then(
+                                    (m) => m.OnlineFriendComponent
+                                );
+                        }
+                    },
+                    {
+                        path: "all",
+                        loadComponent: () => {
+                            return import('./components/all-friend/all-friend.component')
+                                .then(
+                                    (m) => m.AllFriendComponent
+                                );
+                        }
+                    },
+                    {
+                        path: "add",
+                        loadComponent: () => {
+                            return import('./components/add-friend/add-friend.component')
+                                .then(
+                                    (m) => m.AddFriendComponent
+                                );
+                        }
+                    },
+                    {
+                        path: '',
+                        redirectTo: 'online',
+                        pathMatch: 'full'
+                    }
+                ],
+            },
+            {
+                path: '',
+                redirectTo: 'friends',
+                pathMatch: 'full'
+            }
+        ],
+    },
+    {
+        path: "**",
+        redirectTo: 'login',
     },
 ];
