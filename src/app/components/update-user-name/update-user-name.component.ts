@@ -3,6 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import { AppRoutes } from '../../app.routes';
 
 @Component({
   selector: 'app-update-user-name',
@@ -28,7 +29,7 @@ export class UpdateUserNameComponent {
 
     this.userService.updateUserName(this.name).subscribe({
       next: (response) => {
-        this.router.navigate(["/register/dob"]);
+        this.router.navigate([AppRoutes.REGISTER_DOB]);
       },
       error: (error) => {
         this.isLoading.set(false);

@@ -54,9 +54,9 @@ export class VerifyLoginComponent {
         next: (response) => {
           this.isVerifyLoading.set(false);
           if (response?.data) {
-            this.router.navigate(['/home']);
+            this.router.navigate([AppRoutes.ONLINE_FRIENDS]);
           } else {
-            this.router.navigate(['/register/name']);
+            this.router.navigate([AppRoutes.REGISTER_NAME]);
           }
         },
         error: (error) => {

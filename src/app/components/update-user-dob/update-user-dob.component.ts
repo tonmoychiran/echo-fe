@@ -3,6 +3,7 @@ import { Component, computed, inject, signal, WritableSignal } from '@angular/co
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import { AppRoutes } from '../../app.routes';
 
 @Component({
   selector: 'app-update-user-dob',
@@ -91,7 +92,7 @@ export class UpdateUserDobComponent {
     const dob = `${year}-${month}-${day}`;
     this.userService.updateUserDOB(dob).subscribe({
       next: (response) => {
-        this.router.navigate(["/home"]);
+        this.router.navigate([AppRoutes.ONLINE_FRIENDS]);
       },
       error: (error) => {
         this.isLoading.set(false);
