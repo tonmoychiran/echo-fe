@@ -8,7 +8,6 @@ import { Observable, timeout } from 'rxjs';
 })
 export class AuthService {
   private apiUrl = environment.apiUrl;
-  private emailKey = 'loginEmail';
 
   http = inject(HttpClient);
 
@@ -33,18 +32,6 @@ export class AuthService {
       .pipe(
         timeout(30 * 1000)
       );
-  }
-
-  setEmail(email: string): void {
-    sessionStorage.setItem(this.emailKey, email);
-  }
-
-  getEmail(): string | null {
-    return sessionStorage.getItem(this.emailKey);
-  }
-
-  clearEmail(): void {
-    sessionStorage.removeItem(this.emailKey);
   }
 
   setAccessToken(accessToken: string): void {
