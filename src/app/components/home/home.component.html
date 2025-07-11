@@ -1,6 +1,9 @@
 <div class="container">
     <div class="sidebar">
-        <p class="friends">👥 Friends</p>
+        <a routerLink="/app/friends" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"
+            class="friends">
+            👥 Friends
+        </a>
         <div class="separator"></div>
         <p>Messages</p>
         <app-chat-list />
@@ -8,6 +11,6 @@
         <app-user-section />
     </div>
     <div class="main-content">
-        <app-friends />
+        <router-outlet />
     </div>
 </div>

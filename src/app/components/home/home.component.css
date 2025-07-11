@@ -15,13 +15,19 @@
     position: relative;
 }
 
-p {
-    padding: 8px 10px;
+.active {
+    background-color: #3a3c43;
 }
 
 .separator {
     width: 32px;
     height: 2px;
+}
+
+a {
+    padding: 8px 10px;
+    text-decoration: none;
+    color: var(--color)
 }
 
 .friends {
