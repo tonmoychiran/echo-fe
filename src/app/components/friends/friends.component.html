@@ -1,18 +1,11 @@
 <div class="friends-container">
     <nav class="friends-nav">
-        <a class="nav-item" [class.active]="selectedTab() === 'online'" (click)="selectTab('online')">
-            Online
-        </a>
-        <a class="nav-item" [class.active]="selectedTab() === 'all'" (click)="selectTab('all')">
-            All Friends
-        </a>
-        <a class=" nav-item" [class.active]="selectedTab() === 'add'" (click)="selectTab('add')">
-            Add New Friend
-        </a>
+        <a routerLink="/app/friends/online" routerLinkActive="active" [routerLinkActiveOptions]="{exact:false}"
+            class="nav-item">Online</a>
+        <a [routerLink]="['all']" routerLinkActive="active" class="nav-item">All Friends</a>
+        <a [routerLink]="['add']" routerLinkActive="active" class="nav-item">Add New Friend</a>
     </nav>
-    <div class="search-container">
-        <input #searchInput type="text" class="search-input" placeholder="Search">
-    </div>
     <div class="friends-content">
+        <router-outlet />
     </div>
 </div>
