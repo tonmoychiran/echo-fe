@@ -10,11 +10,8 @@ import { AuthService } from './auth.service';
 export class UserService {
   private apiUrl = environment.apiUrl;
 
-
   authService = inject(AuthService);
   http = inject(HttpClient);
-
-
 
   getUserInformation(): Observable<any> {
     const accessToken = this.authService.getAccessToken();
