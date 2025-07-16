@@ -14,7 +14,7 @@ export class WebSocketService {
   private connectionStatus = new Subject<boolean>();
   private subscriptions: Map<string, StompSubscription> = new Map();
 
-  private authService=inject(AuthService);
+  private authService = inject(AuthService);
 
   constructor() {
     this.stompClient = new Client({

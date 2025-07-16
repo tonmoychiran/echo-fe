@@ -41,27 +41,27 @@ export class ChatComponent implements OnInit, OnDestroy {
   connectWebSocket(): void {
     this.webSocketService.connect();
 
-    this.webSocketService.getConnectionStatus().subscribe(connected => {
-      this.isConnected = connected;
-      if (connected && this.chatId) {
-        this.wsSubscription = this.webSocketService.subscribeToTopic(`/topic/${this.chatId}`)
-          .subscribe(message => {
-            this.messages.push({ ...message, isSent: false });
-          });
-      }
-    });
+    // this.webSocketService.getConnectionStatus().subscribe(connected => {
+    //   this.isConnected = connected;
+    //   if (connected && this.chatId) {
+    //     this.wsSubscription = this.webSocketService.subscribeToTopic(`/inbox/`)
+    //       .subscribe(message => {
+    //         this.messages.push({ ...message, isSent: false });
+    //       });
+    //   }
+    // });
 
    
   }
 
 
   onSubmit(): void {
-    if (!this.isSubmitDisabled() && this.chatId) {
-      this.isLoadingData = true;
-      this.webSocketService.sendMessage(`/app/message/${this.chatId}`, this.text);
-      this.text = '';
-      this.isLoadingData = false;
-    }
+    // if (!this.isSubmitDisabled() && this.chatId) {
+    //   this.isLoadingData = true;
+    //   this.webSocketService.sendMessage(`/app/message/${this.chatId}`, this.text);
+    //   this.text = '';
+    //   this.isLoadingData = false;
+    // }
   }
 
   isEmptyInput(): boolean {
@@ -73,15 +73,15 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.chatId) {
-      this.webSocketService.unsubscribeFromTopic(`/topic/${this.chatId}`);
-    }
-    this.webSocketService.disconnect();
-    if (this.wsSubscription) {
-      this.wsSubscription.unsubscribe();
-    }
-    if (this.routeSubscription) {
-      this.routeSubscription.unsubscribe();
-    }
+    // if (this.chatId) {
+    //   this.webSocketService.unsubscribeFromTopic(`/topic/${this.chatId}`);
+    // }
+    // this.webSocketService.disconnect();
+    // if (this.wsSubscription) {
+    //   this.wsSubscription.unsubscribe();
+    // }
+    // if (this.routeSubscription) {
+    //   this.routeSubscription.unsubscribe();
+    // }
   }
 }
