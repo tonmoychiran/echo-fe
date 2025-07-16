@@ -9,5 +9,5 @@ import { ToastComponent } from './components/toast/toast.component';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'goppho_fe';
+  title = 'echo_fe';
 }

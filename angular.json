@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "goppho_fe": {
+    "echo_fe": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/goppho_fe",
+            "outputPath": "dist/echo_fe",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "goppho_fe:build:production"
+              "buildTarget": "echo_fe:build:production"
             },
             "development": {
-              "buildTarget": "goppho_fe:build:development"
+              "buildTarget": "echo_fe:build:development"
             }
           },
           "defaultConfiguration": "development"

@@ -35,11 +35,11 @@ export class AuthService {
   }
 
   setAccessToken(accessToken: string): void {
-    localStorage.setItem("goppho_access_token", accessToken);
+    localStorage.setItem("echo_access_token", accessToken);
   }
 
   getAccessToken(): string | null {
-    return localStorage.getItem("goppho_access_token");
+    return localStorage.getItem("echo_access_token");
   }
 
   clearAccessToken(): void {
