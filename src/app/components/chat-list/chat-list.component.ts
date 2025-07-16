@@ -5,7 +5,7 @@ import { AppRoutes } from '../../app.routes';
 
 @Component({
   selector: 'app-chat-list',
-  imports: [CommonModule, RouterLink, RouterOutlet, RouterModule],
+  imports: [CommonModule, RouterLink, RouterModule],
   templateUrl: './chat-list.component.html',
   styleUrl: './chat-list.component.css'
 })

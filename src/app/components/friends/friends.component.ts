@@ -5,7 +5,7 @@ import { debounceTime, fromEvent, map } from 'rxjs';
 
 @Component({
   selector: 'app-friends',
-  imports: [CommonModule, RouterLink, RouterOutlet, RouterModule],
+  imports: [CommonModule, RouterLink, RouterModule],
   templateUrl: './friends.component.html',
   styleUrl: './friends.component.css'
 })
