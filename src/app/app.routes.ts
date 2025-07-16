@@ -10,6 +10,7 @@ export const AppRoutes = {
     ONLINE_FRIENDS: '/app/friends/online',
     ALL_FRIENDS: '/app/friends/all',
     ADD_FRIENDS: '/app/friends/add',
+    CHAT: '/app/chat',
 };
 
 
@@ -27,25 +28,6 @@ export const routes: Routes = [
             return import('./components/verify-login/verify-login.component')
                 .then((m) => m.VerifyLoginComponent)
         }
-    },
-    {
-        path: "register",
-        children: [
-            {
-                path: "name",
-                loadComponent: () => {
-                    return import('./components/update-user-name/update-user-name.component')
-                        .then((m) => m.UpdateUserNameComponent)
-                }
-            },
-            {
-                path: "dob",
-                loadComponent: () => {
-                    return import('./components/update-user-dob/update-user-dob.component')
-                        .then((m) => m.UpdateUserDobComponent)
-                },
-            }
-        ]
     },
     {
         path: "settings",
@@ -66,7 +48,7 @@ export const routes: Routes = [
         loadComponent: () => {
             return import('./components/home/home.component').then((m) => m.HomeComponent);
         },
-        canActivateChild: [accessTokenGuard],
+        // canActivateChild: [accessTokenGuard],
         children: [
             {
                 path: 'friends',
@@ -110,6 +92,15 @@ export const routes: Routes = [
                         pathMatch: 'full'
                     }
                 ],
+            },
+            {
+                path: 'chat',
+                loadComponent: () => {
+                    return import('./components/chat/chat.component')
+                        .then(
+                            (m) => m.ChatComponent
+                        );
+                }
             },
             {
                 path: '',
