@@ -1,0 +1,9 @@
+<div class="container">
+    <ul>
+        <li>hi</li>
+    </ul>
+    <form (ngSubmit)="onSubmit()">
+        <input type="text" id="text" [(ngModel)]="text" ng name="text" required>
+        <button type="submit" [disabled]="isSubmitDisabled()">Submit</button>
+    </form>
+</div>

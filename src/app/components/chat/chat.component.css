@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+}
+
+
+
+ul {
+    height: 90%
+}
+
+input {
+    height: 32px;
+    width: 90%;
+}
+
+button {
+    background-color: #5865f2;
+    color: white;
+    cursor: pointer;
+}
+
+button:disabled {
+    background-color:  #3a3c43;
+}
