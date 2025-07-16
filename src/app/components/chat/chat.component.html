@@ -1,7 +1,10 @@
 <div class="container">
     <ul>
         @for(message of messages; track message.messageId ){
-            <li>{{message.message}}</li>
+            <li>
+                <p>{{message.user.name}}</p>
+                <p>{{message.message}}</p>
+            </li>
         }
     </ul>
     <form (ngSubmit)="onSubmit()">

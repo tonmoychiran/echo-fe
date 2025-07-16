@@ -5,9 +5,13 @@
 }
 
 
-
 ul {
-    height: 90%
+    height: 90%;
+    text-decoration: none;
+}
+
+li {
+    border-bottom: 1px solid white;
 }
 
 input {
@@ -22,5 +26,5 @@ button {
 }
 
 button:disabled {
-    background-color:  #3a3c43;
+    background-color: #3a3c43;
 }
