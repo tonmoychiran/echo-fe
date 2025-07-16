@@ -1,5 +1,5 @@
 <div class="chat-list">
-    <a routerLink={{chatRoute}} routerLinkActive="active" [routerLinkActiveOptions]="{exact:false}" class="chat-item">
+    <a [routerLink]="[chatRoute, '123']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:false}" class="chat-item">
         <div class="chat-icon">G</div>
         <div class="chat-name">General Chat</div>
     </a>

@@ -57,6 +57,7 @@ export class WebSocketService {
   subscribeToTopic(topic: string): Observable<any> {
     const observable = new Observable<any>(observer => {
       const subscription = this.stompClient.subscribe(topic, message => {
+        console.log(JSON.parse(message.body));
         observer.next(JSON.parse(message.body));
       });
       this.subscriptions.set(topic, subscription);

@@ -1,6 +1,8 @@
 <div class="container">
     <ul>
-        <li>hi</li>
+        @for(message of messages; track message.messageId ){
+            <li>{{message.message}}</li>
+        }
     </ul>
     <form (ngSubmit)="onSubmit()">
         <input type="text" id="text" [(ngModel)]="text" ng name="text" required>
